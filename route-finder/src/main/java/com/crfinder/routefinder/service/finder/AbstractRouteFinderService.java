@@ -9,14 +9,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crfinder.routefinder.dto.TravelScheduleDto;
-import com.crfinder.routefinder.service.TravelScheduleService;
-import com.crfinder.routefinder.service.search.SearchNode;
+import com.crfinder.routefinder.service.CitiesStorageClient;
 import com.crfinder.routefinder.service.search.DijkstrasSearch;
+import com.crfinder.routefinder.service.search.SearchNode;
 
 public abstract class AbstractRouteFinderService<T> implements RouteFinderService<List<T>> {
 
     @Autowired
-    private TravelScheduleService scheduleService;
+    private CitiesStorageClient storageClient;
 
     @Override
     public List<T> findRoutes(String originCity) {
@@ -29,7 +29,7 @@ public abstract class AbstractRouteFinderService<T> implements RouteFinderServic
     protected abstract T convertToTimebasedRoute(SearchNode<String> nodeToConvert);
 
     private List<SearchNode<String>> findNeighbouringNodes(SearchNode<String> node) {
-        List<TravelScheduleDto> routesFromCity = scheduleService.getRoutesFromCity(node.getData());
+        List<TravelScheduleDto> routesFromCity = storageClient.getRoutesFromCity(node.getData());
         return convertToSearchNodes(routesFromCity);
     }
 
