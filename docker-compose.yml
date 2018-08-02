@@ -1,0 +1,65 @@
+version: "3"
+services:
+  cloud-config:
+    build:
+      context: .
+      dockerfile: ./docker/generic/Dockerfile
+      args:
+        JAR_FILE: ./cloud-config/target/cloud-config-0.0.1-SNAPSHOT.jar
+    environment:
+      EUREKA_HOST: service-registry
+    networks:
+      - backend
+  service-registry:
+    build:
+      context: .
+      dockerfile: ./docker/generic/Dockerfile
+      args:
+        JAR_FILE: ./service-registry/target/service-registry-0.0.1-SNAPSHOT.jar
+    environment:
+      EUREKA_HOST: service-registry
+      CLOUD_CONFIG_HOST: cloud-config
+    depends_on:
+      - cloud-config
+    networks:
+      - backend
+  cities-storage:
+    build:
+      context: .
+      dockerfile: ./docker/generic/Dockerfile
+      args:
+        JAR_FILE: ./cities-storage/target/cities-storage-0.0.1-SNAPSHOT.jar
+    environment:
+      EUREKA_HOST: service-registry
+    depends_on:
+      - service-registry
+    networks:
+      - backend
+  route-finder:
+    build:
+      context: .
+      dockerfile: ./docker/generic/Dockerfile
+      args:
+        JAR_FILE: ./route-finder/target/route-finder-0.0.1-SNAPSHOT.jar
+    environment:
+      EUREKA_HOST: service-registry
+    depends_on:
+      - service-registry
+    networks:
+      - backend
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ./docker/generic/Dockerfile
+      args:
+        JAR_FILE: ./api-gateway/target/api-gateway-0.0.1-SNAPSHOT.jar
+    environment:
+      EUREKA_HOST: service-registry
+    depends_on:
+      - service-registry
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+networks:
+  backend:

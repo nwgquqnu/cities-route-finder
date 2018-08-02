@@ -1,6 +1,23 @@
 # cities-route-finder
 Backend microservices example
 
+##Building applications
+run
+    mvnw clean package
+
+In order to run docker containers, execute:
+    docker-compose build &&	\
+    docker-compose up -d cloud-config && sleep 30 && \
+    docker-compose up -d service-registry && sleep 30 && \
+    docker-compose up -d cities-storage && sleep 20 && \
+    docker-compose up -d route-finder && sleep 20 && \
+    docker-compose up -d --no-recreate
+
+After Docker containers started you can request:
+    Eureka http://localhost:8080/discovery
+    Route-finder api http://localhost:8080/route-finder/swagger-ui.html
+    Cities-storage api http://localhost:8080/cities-storage/swagger-ui.html
+
 ##cities-storage
 This service has following endpoints:
 
