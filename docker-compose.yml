@@ -8,11 +8,11 @@ services:
       - type: bind
         source: ./docker/h2/h2-data
         target: /opt/h2-data
-    ports:
-      - 8091:8091
-      - 1521:1521
+#    ports:
+#      - 8091:8091
+#      - 1521:1521
     networks:
-      - backend
+      - database
   cloud-config:
     build:
       context: .
@@ -48,10 +48,11 @@ services:
     depends_on:
       - service-registry
       - h2-server
-    ports:
-      - 8083:8083
+#    ports:
+#      - 8083:8083
     networks:
       - backend
+      - database
   route-finder:
     build:
       context: .
@@ -80,3 +81,4 @@ services:
       - backend
 networks:
   backend:
+  database:
