@@ -169,6 +169,8 @@ These dependencies are used in all child projects
 
 ### api-gateway 
 
+1. ```io.springfox:springfox-swagger-ui:jar:2.9.2:compile``` - Enables functionality to visualize and try out Json API provided by the application
+1. ```io.springfox:springfox-swagger2:jar:2.9.2:compile``` - Enables swagger configuration on the project
 1. ```org.springframework.cloud:spring-cloud-starter-config:jar:1.4.4.RELEASE:compile``` - Provides Spring Cloud Config Client which allows us to use remote Spring Boot configurations
 1. ```org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:jar:1.4.5.RELEASE:compile``` - Provides client for service discovery, which provides service metadata(e.g. hostname) by logical service name. Also, registers this service inside Eureka
 1. ```org.springframework.cloud:spring-cloud-starter-netflix-zuul:jar:1.4.5.RELEASE:compile``` - Provides Gateway, programmable routing. Used as client facing application for ```cities-storage```, ```route-finder``` and ```service-registry`` services
