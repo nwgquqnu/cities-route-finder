@@ -17,7 +17,7 @@ RUN apk add --no-cache curl \
 
 COPY h2.server.properties /root/.h2.server.properties
 
-EXPOSE 8091 1521
+# EXPOSE 8091 1521
 
 CMD java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server \
  	-web -webAllowOthers -webPort 8091 \
